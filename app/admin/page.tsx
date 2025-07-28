@@ -1,32 +1,42 @@
-import AdminDashboard from './AdminDashboard';
+import AdminDashboard, { ProductWithSales } from "./AdminDashboard";
 
-type ProductWithSales = {
+interface ApiProduct {
   id: number;
   title: string;
   price: number;
   category: string;
+  description: string;
   image: string;
-  stock: number;
-  sales: number;
-  status: 'Active' | 'Disabled';
-};
+  rating: {
+    rate: number;
+    count: number;
+  };
+}
 
-async function getProducts(): Promise<ProductWithSales[]> {
-  const res = await fetch('https://fakestoreapi.com/products', { cache: 'no-store' });
+async function getProductsWithSales(): Promise<ProductWithSales[]> {
+  const res = await fetch('https://fakestoreapi.com/products', {
+    next: { revalidate: 3600 },
+  });
+
   if (!res.ok) {
     throw new Error('Failed to fetch products');
   }
-  const products = await res.json();
+
+  const products: ApiProduct[] = await res.json();
   
-  return products.map((p: any) => ({
-    ...p,
+  return products.map((p) => ({
+    id: p.id,
+    title: p.title,
+    price: p.price,
+    category: p.category,
+    image: p.image,
     stock: Math.floor(Math.random() * 100) + 1,
-    sales: Math.floor(Math.random() * 500) + 10,
+    sales: Math.floor(Math.random() * 500),
     status: 'Active',
   }));
 }
 
 export default async function AdminPage() {
-  const products = await getProducts();
-  return <AdminDashboard products={products} />;
+  const productsWithSales = await getProductsWithSales();
+  return <AdminDashboard products={productsWithSales} />;
 }

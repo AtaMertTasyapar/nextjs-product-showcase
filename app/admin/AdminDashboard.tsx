@@ -4,7 +4,7 @@ import { useState, useMemo } from "react";
 import Image from "next/image";
 import { PlusIcon, MagnifyingGlassIcon, ChevronUpIcon, ChevronDownIcon } from '@heroicons/react/24/outline';
 
-type ProductWithSales = {
+export type ProductWithSales = {
   id: number;
   title: string;
   price: number;
@@ -21,16 +21,11 @@ export default function AdminDashboard({ products }: { products: ProductWithSale
   const [searchTerm, setSearchTerm] = useState('');
   const [sortConfig, setSortConfig] = useState<{ key: SortableKeys; direction: 'ascending' | 'descending' } | null>({ key: 'sales', direction: 'descending' });
 
-  // Sıralama ve Filtreleme Mantığı
   const sortedAndFilteredProducts = useMemo(() => {
     let filtered = [...products];
-
-    // Arama filtresi
     if (searchTerm) {
       filtered = filtered.filter(p => p.title.toLowerCase().includes(searchTerm.toLowerCase()));
     }
-
-    // Sıralama
     if (sortConfig !== null) {
       filtered.sort((a, b) => {
         if (a[sortConfig.key] < b[sortConfig.key]) {
@@ -42,7 +37,6 @@ export default function AdminDashboard({ products }: { products: ProductWithSale
         return 0;
       });
     }
-
     return filtered;
   }, [products, searchTerm, sortConfig]);
 
@@ -62,7 +56,6 @@ export default function AdminDashboard({ products }: { products: ProductWithSale
 
   return (
     <div className="bg-white rounded-xl shadow-lg p-4 sm:p-6 md:p-8 animate-fade-in-up">
-      
       <header className="flex flex-col md:flex-row justify-between items-center mb-6 pb-4 border-b border-gray-200">
         <h1 className="text-2xl sm:text-3xl font-extrabold text-gray-800 mb-4 md:mb-0">
           Admin Panel - Products
@@ -84,7 +77,6 @@ export default function AdminDashboard({ products }: { products: ProductWithSale
           </button>
         </div>
       </header>
-
       <div className="overflow-x-auto">
         <div className="min-w-[720px] align-middle">
           <div className="grid grid-cols-10 gap-4 p-2 font-bold text-xs text-gray-500 uppercase bg-gray-50 rounded-t-lg">

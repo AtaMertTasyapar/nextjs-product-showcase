@@ -19,7 +19,7 @@ interface CartState {
   getTotalItems: () => number;
   getTotalPrice: () => number;
   showAddedToCartAnimation: boolean;
-  triggerAddedToCartAnimation: (targetRect?: DOMRect) => void;
+  triggerAddedToCartAnimation: () => void;
   cartIconRect: DOMRect | null;
   setCartIconRect: (rect: DOMRect) => void;
 }
@@ -46,14 +46,14 @@ export const useCartStore = create<CartState>()(
             };
           }
         });
-        get().triggerAddedToCartAnimation(get().cartIconRect || undefined);
+        get().triggerAddedToCartAnimation();
       },
       removeItem: (productId) => {
         set((state) => ({
           items: state.items.filter((item) => item.id !== productId),
         }));
       },
-        increaseQuantity: (productId) =>
+      increaseQuantity: (productId) =>
         set((state) => ({
           items: state.items.map((item) =>
             item.id === productId
@@ -76,7 +76,8 @@ export const useCartStore = create<CartState>()(
       clearCart: () => set({ items: [] }),
       getTotalItems: () => get().items.reduce((total, item) => total + item.quantity, 0),
       getTotalPrice: () => get().items.reduce((total, item) => total + item.price * item.quantity, 0),
-      triggerAddedToCartAnimation: (targetRect) => {
+      
+      triggerAddedToCartAnimation: () => {
         set({ showAddedToCartAnimation: true });
         setTimeout(() => {
           set({ showAddedToCartAnimation: false });
