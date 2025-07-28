@@ -1,3 +1,4 @@
+// app/product/[id]/page.tsx
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import AddToCartButton from '../../_components/AddToCartButton';
@@ -15,25 +16,14 @@ interface Product {
   };
 }
 
-interface ProductPageProps {
-  params: {
-    id: string;
-  };
-}
-
 async function getProduct(id: string): Promise<Product | null> {
   const res = await fetch(`https://fakestoreapi.com/products/${id}`, {
     next: { revalidate: 3600 },
   });
 
-  if (!res.ok) {
-    throw new Error('Failed to fetch product data, server responded with an error.');
-  }
-
+  if (!res.ok) { return null; }
   const responseText = await res.text();
-  if (!responseText) {
-    return null;
-  }
+  if (!responseText) { return null; }
   
   try {
     return JSON.parse(responseText);
@@ -43,13 +33,17 @@ async function getProduct(id: string): Promise<Product | null> {
   }
 }
 
-export default async function ProductDetailPage({ params }: ProductPageProps) {
+// DÜZELTME: Hem 'await params' hatasını çözen hem de tipi doğru alan yapı
+export default async function ProductDetailPage({ params: paramsPromise }: { params: Promise<{ id: string }> }) {
+  const params = await paramsPromise;
   const product = await getProduct(params.id);
 
   if (!product) {
     notFound();
   }
 
+  // DÜZELTME: Görünümü bozan 'lg:w-1//2' hatası 'lg:w-1/2' olarak düzeltildi
+  // ve tüm dark mode sınıfları kaldırılarak stilin globals.css'ten yönetilmesi sağlandı.
   return (
     <div className="bg-white rounded-xl shadow-lg p-8 md:p-12 lg:flex lg:items-center gap-10 animate-fade-in">
       <div className="lg:w-1/2 flex justify-center items-center p-6 bg-gray-50 rounded-lg overflow-hidden relative min-h-[300px] lg:min-h-[450px]">
