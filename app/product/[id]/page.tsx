@@ -15,6 +15,12 @@ interface Product {
   };
 }
 
+interface ProductPageProps {
+  params: {
+    id: string;
+  };
+}
+
 async function getProduct(id: string): Promise<Product | null> {
   const res = await fetch(`https://fakestoreapi.com/products/${id}`, {
     next: { revalidate: 3600 },
@@ -25,11 +31,10 @@ async function getProduct(id: string): Promise<Product | null> {
   }
 
   const responseText = await res.text();
-
   if (!responseText) {
     return null;
   }
-
+  
   try {
     return JSON.parse(responseText);
   } catch (error) {
@@ -38,8 +43,7 @@ async function getProduct(id: string): Promise<Product | null> {
   }
 }
 
-
-export default async function ProductDetailPage({ params }: { params: { id: string } }) {
+export default async function ProductDetailPage({ params }: ProductPageProps) {
   const product = await getProduct(params.id);
 
   if (!product) {

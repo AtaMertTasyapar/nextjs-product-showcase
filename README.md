@@ -1,11 +1,11 @@
-# NextJS - Product Showcase
+# Next.js - Product Showcase
 
 ---
 
 ### **Live Demo & Repository**
 
 * **Live Demo (Vercel):** `[BURAYA VERCEL LİNKİNİZİ YAPIŞTIRIN]`
-* **GitHub Repository:** `[BURAYA GITHUB REPO LİNKİNİZİ YAPIŞTIRIN]`
+* **GitHub Repository:** `https://github.com/AtaMertTasyapar/nextjs-product-showcase.git`
 
 ---
 
@@ -41,12 +41,12 @@ To run this project locally, follow these steps:
 
 **1. Clone the repository:**
 ```bash
-git clone [BURAYA GITHUB REPO LİNKİNİZİ YAPIŞTIRIN]
+git clone https://github.com/AtaMertTasyapar/nextjs-product-showcase.git
 ```
 
 **2. Navigate to the project directory:**
 ```bash
-cd [REPO-ADINIZ]
+cd nextjs-product-showcase
 ```
 
 **3. Install dependencies:**
