@@ -1,15 +1,12 @@
-// app/loading.tsx
 export default function RootLoading() {
   return (
     <div className="animate-fade-in">
-      {/* Skeleton for Controls */}
       <div className="bg-white p-4 rounded-xl shadow-lg mb-6 flex flex-col sm:flex-row items-center gap-4">
         <div className="w-full sm:w-auto p-2 h-10 rounded-lg bg-gray-200 animate-pulse basis-32"></div>
         <div className="relative w-full sm:flex-1 h-10 rounded-lg bg-gray-200 animate-pulse"></div>
         <div className="relative w-full sm:w-56 h-10 rounded-lg bg-gray-200 animate-pulse"></div>
       </div>
       
-      {/* Skeleton for Product Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
         {Array.from({ length: 8 }).map((_, i) => (
           <div key={i} className="bg-white rounded-xl shadow-lg border border-transparent overflow-hidden">

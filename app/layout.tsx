@@ -3,7 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import NavbarClient from "./_components/NavbarWrapper";
 import CartAnimationOverlay from "./_components/CartAnimationOverlay";
-import ThemeManager from "./_components/ThemeManager"; // Yeni bileşeni import et
+import ThemeManager from "./_components/ThemeManager";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -20,9 +20,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      {/* Temel gövdeye geçiş efekti için sınıflar ekliyoruz */}
       <body className={`${inter.className} bg-gray-100 text-gray-800 antialiased flex flex-col min-h-screen transition-colors duration-300`}>
-        <ThemeManager /> {/* Bileşeni buraya ekliyoruz */}
+        <ThemeManager />
         <NavbarClient />
         <main className="container mx-auto p-4 flex-grow w-full">
           {children}

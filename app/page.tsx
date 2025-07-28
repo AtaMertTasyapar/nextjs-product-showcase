@@ -1,7 +1,5 @@
-// app/page.tsx
-import ProductGrid from './_components/ProductGrid'; // Yeni oluşturacağımız bileşen
+import ProductGrid from './_components/ProductGrid';
 
-// Product interface'i aynı kalacak
 interface Product {
   id: number;
   title: string;
@@ -16,7 +14,6 @@ interface Product {
 }
 
 async function getProducts(): Promise<Product[]> {
-  // Veri çekme işlemi aynı kalacak
   const res = await fetch('https://fakestoreapi.com/products', { next: { revalidate: 3600 } });
   if (!res.ok) {
     throw new Error('Failed to fetch products');
@@ -44,7 +41,6 @@ export default async function HomePage() {
           Error loading products: {error}. Please try again later.
         </div>
       ) : (
-        // Tüm ürünleri ProductGrid bileşenine prop olarak gönderiyoruz
         <ProductGrid products={products} />
       )}
     </section>
