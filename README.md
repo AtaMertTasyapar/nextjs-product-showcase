@@ -4,7 +4,7 @@
 
 ### **Live Demo & Repository**
 
-* **Live Demo (Vercel):** `[BURAYA VERCEL LİNKİNİZİ YAPIŞTIRIN]`
+* **Live Demo (Vercel):** `https://nextjs-product-showcase-bunc.vercel.app`
 * **GitHub Repository:** `https://github.com/AtaMertTasyapar/nextjs-product-showcase.git`
 
 ---
